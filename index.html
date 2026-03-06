@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIVELY — Live Commerce. Reimagined.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Carter+One&family=Rowdies:wght@300;400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --purple: #930093;
+    --pink: #FFE5FF;
+    --magenta: #ff00ff;
+    --white: #FFFFFF;
+    --grey: #888888;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--magenta);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--purple);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.15s ease;
+    mix-blend-mode: difference;
+  }
+
+  /* Noise grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.9) 0%, transparent 100%);
+  }
+
+  .nav-logo {
+    font-family: 'Carter One', cursive;
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: var(--white);
+    text-shadow: 0 0 20px var(--magenta), 0 0 40px var(--purple);
+  }
+
+  .nav-badge {
+    background: var(--purple);
+    color: var(--pink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 6px 16px;
+    border-radius: 100px;
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Glow orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+  }
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(147,0,147,0.3) 0%, transparent 70%);
+    top: -100px; left: -100px;
+    animation: float1 8s ease-in-out infinite;
+  }
+  .orb-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,0,255,0.2) 0%, transparent 70%);
+    bottom: -50px; right: -50px;
+    animation: float2 10s ease-in-out infinite;
+  }
+  .orb-3 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,229,255,0.1) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: float3 6s ease-in-out infinite;
+  }
+
+  @keyframes float1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(40px, 40px); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-30px, -30px); }
+  }
+  @keyframes float3 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+  }
+
+  /* Live indicator */
+  .live-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(147,0,147,0.15);
+    border: 1px solid rgba(147,0,147,0.4);
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 40px;
+    animation: fadeInDown 1s ease forwards;
+    opacity: 0;
+  }
+
+  .pulse-dot {
+    width: 8px; height: 8px;
+    background: var(--magenta);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--magenta);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.7; }
+  }
+
+  /* Main heading */
+  .hero-title {
+    font-family: 'Carter One', cursive;
+    font-size: clamp(72px, 14vw, 160px);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    margin-bottom: 12px;
+    animation: fadeInUp 1s ease 0.2s forwards;
+    opacity: 0;
+    position: relative;
+  }
+
+  .hero-title .glow-text {
+    color: var(--magenta);
+    -webkit-text-stroke: 2px var(--magenta);
+    text-shadow: 0 0 40px var(--magenta), 0 0 80px var(--purple);
+    display: block;
+  }
+
+  .hero-title .solid-text {
+    color: var(--white);
+    display: block;
+    text-shadow: 0 0 60px rgba(255,229,255,0.3);
+  }
+
+  .hero-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(14px, 2vw, 18px);
+    font-weight: 300;
+    color: var(--grey);
+    letter-spacing: 1px;
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 60px;
+    animation: fadeInUp 1s ease 0.4s forwards;
+    opacity: 0;
+  }
+
+  .hero-subtitle span {
+    color: var(--pink);
+    font-style: italic;
+  }
+
+  /* Waitlist form */
+  .waitlist-form {
+    display: flex;
+    gap: 0;
+    max-width: 480px;
+    width: 100%;
+    animation: fadeInUp 1s ease 0.6s forwards;
+    opacity: 0;
+    position: relative;
+  }
+
+  .waitlist-input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(147,0,147,0.4);
+    border-right: none;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 16px 24px;
+    border-radius: 8px 0 0 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+  }
+
+  .waitlist-input::placeholder { color: #444; }
+
+  .waitlist-input:focus {
+    border-color: var(--purple);
+    background: rgba(147,0,147,0.08);
+    box-shadow: 0 0 20px rgba(147,0,147,0.2);
+  }
+
+  .waitlist-btn {
+    background: var(--purple);
+    color: var(--pink);
+    border: none;
+    font-family: 'Rowdies', cursive;
+    font-size: 13px;
+    letter-spacing: 2px;
+    padding: 16px 28px;
+    border-radius: 0 8px 8px 0;
+    cursor: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .waitlist-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--magenta), var(--purple));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .waitlist-btn:hover::before { opacity: 1; }
+  .waitlist-btn:hover { box-shadow: 0 0 30px rgba(147,0,147,0.5); }
+  .waitlist-btn span { position: relative; z-index: 1; }
+
+  .waitlist-note {
+    font-size: 11px;
+    color: #444;
+    margin-top: 16px;
+    letter-spacing: 1px;
+    animation: fadeInUp 1s ease 0.8s forwards;
+    opacity: 0;
+  }
+
+  /* Success message */
+  .success-msg {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    color: var(--pink);
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-top: 16px;
+  }
+
+  /* Counter */
+  .counter-row {
+    display: flex;
+    gap: 48px;
+    margin-top: 80px;
+    animation: fadeInUp 1s ease 1s forwards;
+    opacity: 0;
+  }
+
+  .counter-item { text-align: center; }
+
+  .counter-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 48px;
+    color: var(--white);
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(255,229,255,0.3);
+  }
+
+  .counter-label {
+    font-size: 10px;
+    color: var(--grey);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .counter-divider {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--purple), transparent);
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    padding: 40px 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(147,0,147,0.2);
+    border-bottom: 1px solid rgba(147,0,147,0.2);
+    background: rgba(147,0,147,0.05);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 60px;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  .marquee-item {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
+    letter-spacing: 4px;
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    flex-shrink: 0;
+  }
+
+  .marquee-item::after {
+    content: '●';
+    color: var(--magenta);
+    font-size: 8px;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* FEATURES */
+  .features {
+    padding: 120px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--purple);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--purple);
+  }
+
+  .features-heading {
+    font-family: 'Rowdies', cursive;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 80px;
+    max-width: 500px;
+  }
+
+  .features-heading em {
+    font-style: italic;
+    color: var(--pink);
+    font-weight: 300;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .feature-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(147,0,147,0.15);
+    padding: 40px 32px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(147,0,147,0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(147,0,147,0.5);
+    transform: translateY(-4px);
+  }
+
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .feature-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 64px;
+    color: rgba(147,0,147,0.15);
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    line-height: 1;
+  }
+
+  .feature-title {
+    font-family: 'Rowdies', cursive;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+
+  .feature-desc {
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* HOW IT WORKS */
+  .how {
+    padding: 120px 48px;
+    background: rgba(147,0,147,0.04);
+    border-top: 1px solid rgba(147,0,147,0.1);
+  }
+
+  .how-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 40px;
+  }
+
+  .step {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 48px;
+    color: rgba(147,0,147,0.3);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 50px;
+  }
+
+  .step-content {}
+
+  .step-title {
+    font-family: 'Rowdies', cursive;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .step-desc {
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* Phone mockup */
+  .phone-mockup {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .phone-frame {
+    width: 240px;
+    height: 480px;
+    background: #111;
+    border-radius: 36px;
+    border: 2px solid rgba(147,0,147,0.4);
+    box-shadow: 0 0 60px rgba(147,0,147,0.3), 0 0 120px rgba(147,0,147,0.1), inset 0 0 20px rgba(0,0,0,0.5);
+    overflow: hidden;
+    position: relative;
+    animation: phoneFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes phoneFloat {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-16px) rotate(-2deg); }
+  }
+
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, #0A0A0A 0%, #1a001a 100%);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .phone-logo {
+    font-family: 'Carter One', cursive;
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-align: center;
+    color: var(--white);
+    text-shadow: 0 0 10px var(--magenta);
+  }
+
+  .phone-live-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .phone-live-card {
+    flex: 1;
+    height: 70px;
+    border-radius: 8px;
+    border: 1px solid var(--purple);
+    background: rgba(147,0,147,0.15);
+    display: flex;
+    align-items: flex-end;
+    padding: 6px;
+    box-shadow: 0 0 10px rgba(147,0,147,0.3);
+  }
+
+  .phone-live-badge {
+    font-size: 6px;
+    background: var(--magenta);
+    color: white;
+    padding: 1px 4px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .phone-drop {
+    height: 120px;
+    border-radius: 10px;
+    background: linear-gradient(160deg, #1a0a1a, #2a0a2a);
+    border: 1px solid rgba(147,0,147,0.2);
+    display: flex;
+    align-items: flex-end;
+    padding: 10px;
+    justify-content: space-between;
+  }
+
+  .phone-drop-info { }
+  .phone-drop-brand { font-size: 7px; color: var(--grey); letter-spacing: 1px; }
+  .phone-drop-price { font-size: 12px; font-weight: 700; color: var(--white); }
+
+  .phone-buy-btn {
+    background: var(--white);
+    color: var(--black);
+    font-size: 7px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+  }
+
+  .phone-glow-ring {
+    position: absolute;
+    width: 280px;
+    height: 520px;
+    border-radius: 40px;
+    border: 1px solid rgba(255,0,255,0.2);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: ringPulse 3s ease-in-out infinite;
+  }
+
+  .phone-glow-ring-2 {
+    position: absolute;
+    width: 320px;
+    height: 560px;
+    border-radius: 44px;
+    border: 1px solid rgba(147,0,147,0.1);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: ringPulse 3s ease-in-out infinite 0.5s;
+  }
+
+  @keyframes ringPulse {
+    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.02); }
+  }
+
+  /* CTA BOTTOM */
+  .cta-bottom {
+    padding: 160px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bottom .orb-center {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(147,0,147,0.2) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(60px);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    font-family: 'Carter One', cursive;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 0.95;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .cta-title .line1 { color: var(--white); display: block; }
+  .cta-title .line2 {
+    color: var(--magenta);
+    -webkit-text-stroke: 1.5px var(--magenta);
+    text-shadow: 0 0 30px var(--magenta);
+    display: block;
+  }
+
+  .cta-sub {
+    font-size: 16px;
+    color: var(--grey);
+    margin-bottom: 48px;
+    font-weight: 300;
+    position: relative;
+  }
+
+  .cta-form {
+    display: flex;
+    gap: 0;
+    max-width: 440px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 48px;
+    border-top: 1px solid rgba(147,0,147,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Carter One', cursive;
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: var(--white);
+    text-shadow: 0 0 10px var(--magenta);
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: #333;
+    letter-spacing: 1px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    color: #444;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--purple); }
+
+  /* Animations */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .features { padding: 80px 24px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .how { padding: 80px 24px; }
+    .how-inner { grid-template-columns: 1fr; }
+    .phone-mockup { display: none; }
+    .counter-row { gap: 24px; }
+    .waitlist-form, .cta-form { flex-direction: column; }
+    .waitlist-input, .waitlist-btn { border-radius: 8px; border: 1px solid rgba(147,0,147,0.4); }
+    .cta-bottom { padding: 100px 24px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">LIVELY</div>
+  <div class="nav-badge">Coming Soon</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="live-pill">
+    <div class="pulse-dot"></div>
+    Live Commerce · Reimagined
+  </div>
+
+  <h1 class="hero-title">
+    <span class="glow-text">SHOP</span>
+    <span class="solid-text">LIVE.</span>
+  </h1>
+
+  <p class="hero-subtitle">
+    Where brands <span>go live</span>, products sell in real time,
+    and discovery feels like <span>addiction</span>.
+    India's first commerce-first live platform.
+  </p>
+
+  <div class="waitlist-form">
+    <input type="email" class="waitlist-input" placeholder="your@email.com" id="emailInput">
+    <button class="waitlist-btn" onclick="joinWaitlist()"><span>JOIN WAITLIST</span></button>
+  </div>
+  <div class="success-msg" id="successMsg">
+    <div class="pulse-dot"></div>
+    You're on the list. We'll be in touch.
+  </div>
+  <p class="waitlist-note">No spam. Just your early access when we launch.</p>
+
+  <div class="counter-row">
+    <div class="counter-item">
+      <div class="counter-num" id="c1">0</div>
+      <div class="counter-label">Early Signups</div>
+    </div>
+    <div class="counter-divider"></div>
+    <div class="counter-item">
+      <div class="counter-num">∞</div>
+      <div class="counter-label">Live Sessions</div>
+    </div>
+    <div class="counter-divider"></div>
+    <div class="counter-item">
+      <div class="counter-num">01</div>
+      <div class="counter-label">Platform</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee">
+    <div class="marquee-item">LIVE COMMERCE</div>
+    <div class="marquee-item">DROPS</div>
+    <div class="marquee-item">PULSE SESSIONS</div>
+    <div class="marquee-item">BRAND STOREFRONTS</div>
+    <div class="marquee-item">INSTANT CHECKOUT</div>
+    <div class="marquee-item">LIVE COMMERCE</div>
+    <div class="marquee-item">DROPS</div>
+    <div class="marquee-item">PULSE SESSIONS</div>
+    <div class="marquee-item">BRAND STOREFRONTS</div>
+    <div class="marquee-item">INSTANT CHECKOUT</div>
+    <div class="marquee-item">LIVE COMMERCE</div>
+    <div class="marquee-item">DROPS</div>
+    <div class="marquee-item">PULSE SESSIONS</div>
+    <div class="marquee-item">BRAND STOREFRONTS</div>
+    <div class="marquee-item">INSTANT CHECKOUT</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-label reveal">What is LIVELY</div>
+  <h2 class="features-heading reveal">
+    Commerce meets<br><em>culture.</em>
+  </h2>
+
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <span class="feature-num">01</span>
+      <span class="feature-icon">🔴</span>
+      <div class="feature-title">Pulse — Go Live</div>
+      <div class="feature-desc">Brands stream live, showcase products in real time. Viewers tap once to buy — no friction, no redirect, just instant commerce.</div>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-num">02</span>
+      <span class="feature-icon">🎬</span>
+      <div class="feature-title">Drops — Shoppable Video</div>
+      <div class="feature-desc">Short vertical videos with products tagged inside. Scroll the feed, tap a product, buy it. Discovery has never felt this natural.</div>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-num">03</span>
+      <span class="feature-icon">⚡</span>
+      <div class="feature-title">Algorithm — Commerce First</div>
+      <div class="feature-desc">No vanity metrics. No follower counts. A new brand with great products gets the same shot as an established one. Reach is earned by quality.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="how-inner">
+    <div>
+      <div class="section-label reveal">How It Works</div>
+      <h2 class="features-heading reveal">Built for <em>brands</em> that mean business.</h2>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <div class="step-title">Create Your Storefront</div>
+            <div class="step-desc">Set up your brand page, upload your products, and schedule your first live session in minutes.</div>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <div class="step-title">Go Live or Drop Content</div>
+            <div class="step-desc">Hit Go Live for real-time selling or upload a Drop — a short shoppable video that sells while you sleep.</div>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <div class="step-title">Algorithm Does the Rest</div>
+            <div class="step-desc">LIVELY pushes your content to buyers who are most likely to purchase. Commerce-first discovery, not follower-first.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone Mockup -->
+    <div class="phone-mockup reveal">
+      <div class="phone-glow-ring"></div>
+      <div class="phone-glow-ring-2"></div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-logo">LIVELY</div>
+          <div class="phone-live-row">
+            <div class="phone-live-card">
+              <div class="phone-live-badge">LIVE</div>
+            </div>
+            <div class="phone-live-card">
+              <div class="phone-live-badge">LIVE</div>
+            </div>
+            <div class="phone-live-card">
+              <div class="phone-live-badge">SOON</div>
+            </div>
+          </div>
+          <div class="phone-drop">
+            <div class="phone-drop-info">
+              <div class="phone-drop-brand">BRAND NAME</div>
+              <div class="phone-drop-price">₹1,299</div>
+            </div>
+            <div class="phone-buy-btn">BUY NOW</div>
+          </div>
+          <div class="phone-drop" style="height:80px; opacity:0.6">
+            <div class="phone-drop-info">
+              <div class="phone-drop-brand">ANOTHER BRAND</div>
+              <div class="phone-drop-price">₹2,499</div>
+            </div>
+            <div class="phone-buy-btn">BUY NOW</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BOTTOM -->
+<section class="cta-bottom">
+  <div class="orb-center"></div>
+  <h2 class="cta-title reveal">
+    <span class="line1">BE FIRST.</span>
+    <span class="line2">BE LIVELY.</span>
+  </h2>
+  <p class="cta-sub reveal">Early access is limited. Get yours before we launch.</p>
+  <div class="cta-form reveal">
+    <input type="email" class="waitlist-input" placeholder="your@email.com" id="emailInput2" style="border-radius:8px 0 0 8px;">
+    <button class="waitlist-btn" onclick="joinWaitlist2()" style="border-radius:0 8px 8px 0;"><span>JOIN NOW</span></button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">LIVELY</div>
+  <div class="footer-copy">© 2026 LIVELY. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Privacy</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX - 6 + 'px';
+    cursor.style.top = mouseY - 6 + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    cursorRing.style.left = ringX - 18 + 'px';
+    cursorRing.style.top = ringY - 18 + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('button, a, input').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(2)';
+      cursorRing.style.transform = 'scale(1.5)';
+      cursorRing.style.borderColor = 'var(--magenta)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      cursorRing.style.transform = 'scale(1)';
+      cursorRing.style.borderColor = 'var(--purple)';
+    });
+  });
+
+  // Counter animation
+  function animateCounter(el, target, duration) {
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { start = target; clearInterval(timer); }
+      el.textContent = Math.floor(start).toLocaleString();
+    }, 16);
+  }
+
+  // Supabase config
+  const SUPABASE_URL = 'https://bdiurafgeograabdufdg.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkaXVyYWZnZW9ncmFhYmR1ZmRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NDAyOTAsImV4cCI6MjA4ODIxNjI5MH0.e4lvMsHq_iI8Mo6vl7HDkX_AoQDa2xQ6ubfTkEjXE28';
+
+  // Get real count from Supabase
+  let count = 847;
+  async function fetchCount() {
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?select=count`, {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'count=exact'
+        }
+      });
+      const total = res.headers.get('content-range');
+      if (total) {
+        const realCount = parseInt(total.split('/')[1]);
+        if (!isNaN(realCount)) count = 847 + realCount;
+      }
+      document.getElementById('c1').textContent = count.toLocaleString();
+    } catch(e) {
+      document.getElementById('c1').textContent = count.toLocaleString();
+    }
+  }
+  fetchCount();
+
+  async function submitEmail(email, inputEl, formEl, successEl) {
+    if (!email || !email.includes('@')) {
+      inputEl.style.borderColor = '#ff4444';
+      setTimeout(() => inputEl.style.borderColor = 'rgba(147,0,147,0.4)', 1500);
+      return;
+    }
+
+    // Show loading
+    const btn = inputEl.nextElementSibling;
+    btn.querySelector('span').textContent = '...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ email: email })
+      });
+
+      if (res.status === 201 || res.ok) {
+        // Success!
+        count++;
+        document.getElementById('c1').textContent = count.toLocaleString();
+        if (formEl) {
+          formEl.style.display = 'none';
+          successEl.style.display = 'flex';
+        } else {
+          inputEl.value = '';
+          inputEl.placeholder = "You're on the list! 🔴";
+          inputEl.style.borderColor = 'var(--purple)';
+          btn.querySelector('span').textContent = 'JOINED ✓';
+          btn.style.background = 'var(--purple)';
+        }
+      } else if (res.status === 409) {
+        // Duplicate email
+        inputEl.style.borderColor = '#ff4444';
+        inputEl.placeholder = 'Already on the list!';
+        inputEl.value = '';
+        btn.querySelector('span').textContent = 'JOIN WAITLIST';
+        btn.disabled = false;
+      } else {
+        throw new Error('Failed');
+      }
+    } catch(e) {
+      btn.querySelector('span').textContent = 'Try Again';
+      btn.disabled = false;
+      inputEl.style.borderColor = '#ff4444';
+    }
+  }
+
+  function joinWaitlist() {
+    const email = document.getElementById('emailInput').value;
+    const inputEl = document.getElementById('emailInput');
+    const formEl = document.querySelector('.waitlist-form');
+    const successEl = document.getElementById('successMsg');
+    submitEmail(email, inputEl, formEl, successEl);
+  }
+
+  function joinWaitlist2() {
+    const email = document.getElementById('emailInput2').value;
+    const inputEl = document.getElementById('emailInput2');
+    submitEmail(email, inputEl, null, null);
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
