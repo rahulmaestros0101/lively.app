@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="description" content="LIVELY — India's first live commerce platform. Where brands go live and products sell in real time.">
   <meta name="theme-color" content="#ffffff">
-  <meta property="og:title" content="LIVELY - Live Selling. Reimagined.">
+  <meta property="og:title" content="LIVELY - Live Commerce. Reimagined.">
   <meta property="og:description" content="India's first commerce-first live platform. Join the waitlist.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="LIVELY — Live Commerce. Reimagined.">
-  <title>LIVELY - Live Selling. Reimagined.</title>
+  <meta name="twitter:title" content="LIVELY - Live Commerce. Reimagined.">
+  <title>LIVELY - Live Commerce. Reimagined.</title>
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -508,6 +508,98 @@
       .cta { padding: 60px 16px; }
       footer { padding: 20px 16px; }
     }
+
+    /* ── CONTACT MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white); border-radius: 20px;
+      padding: 40px 36px; max-width: 460px; width: 100%;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.15);
+      position: relative;
+      animation: modalIn 0.3s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 20px;
+      background: none; border: none; cursor: pointer;
+      font-size: 20px; color: var(--light-grey);
+      line-height: 1; padding: 4px 8px; border-radius: 6px;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--black); }
+    .modal-eyebrow {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--purple); margin-bottom: 10px; font-weight: 500;
+    }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px; font-weight: 600; color: var(--black);
+      margin-bottom: 6px; line-height: 1.2;
+    }
+    .modal-sub {
+      font-size: 13px; color: var(--grey); margin-bottom: 28px;
+      font-weight: 300; line-height: 1.6;
+    }
+    .modal-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .modal-label { font-size: 11px; font-weight: 500; color: var(--dark); letter-spacing: 0.5px; }
+    .modal-inp {
+      background: var(--light); border: 1px solid var(--border);
+      color: var(--black); font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 300;
+      padding: 12px 16px; border-radius: 8px; outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none; width: 100%;
+    }
+    .modal-inp:focus { border-color: var(--purple); background: var(--white); }
+    .modal-inp.err { border-color: #ff3b30; }
+    textarea.modal-inp { resize: none; height: 100px; line-height: 1.6; }
+    .modal-btn {
+      background: var(--purple); color: var(--white); border: none;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 14px 28px; border-radius: 8px; cursor: pointer;
+      transition: opacity 0.2s; width: 100%; margin-top: 8px;
+      -webkit-appearance: none;
+    }
+    .modal-btn:hover { opacity: 0.85; }
+    .modal-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .modal-thanks {
+      display: none; flex-direction: column; align-items: center;
+      text-align: center; gap: 16px; padding: 20px 0;
+    }
+    .thanks-icon { font-size: 48px; }
+    .thanks-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px; font-weight: 600; color: var(--black);
+    }
+    .thanks-sub { font-size: 14px; color: var(--grey); font-weight: 300; line-height: 1.7; max-width: 300px; }
+    .thanks-close {
+      background: var(--purple); color: var(--white); border: none;
+      font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 12px 32px; border-radius: 8px; cursor: pointer;
+      transition: opacity 0.2s; margin-top: 8px;
+    }
+    .thanks-close:hover { opacity: 0.85; }
+    .modal-later {
+      background: none; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      color: var(--light-grey); letter-spacing: 0.5px;
+      padding: 10px; margin-top: 4px; width: 100%;
+      text-align: center; transition: color 0.2s;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .modal-later:hover { color: var(--grey); }
   </style>
 </head>
 <body>
