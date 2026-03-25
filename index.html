@@ -485,7 +485,7 @@
     const range = r.headers.get('content-range');
     if (range) {
       const n = parseInt(range.split('/')[1]);
-      if (!isNaN(n)) { count = n; document.getElementById('ctr').textContent = count.toLocaleString(); }
+      if (!isNaN(n)) { count = 001 + n; document.getElementById('ctr').textContent = count.toLocaleString(); }
     }
   }).catch(() => {});
 
