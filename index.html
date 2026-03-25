@@ -283,7 +283,7 @@
       <p class="form-note">No spam. Early access when we launch.</p>
     </div>
     <div class="hero-stats">
-      <div class="stat"><div class="stat-n" id="ctr">847</div><div class="stat-l">Early Signups</div></div>
+      <div class="stat"><div class="stat-n" id="ctr">001</div><div class="stat-l">Early Signups</div></div>
       <div class="stat"><div class="stat-n">01</div><div class="stat-l">Platform</div></div>
       <div class="stat"><div class="stat-n">2026</div><div class="stat-l">Launch Year</div></div>
     </div>
@@ -476,7 +476,7 @@
 <script>
   const SUPA_URL = 'https://bdiurafgeograabdufdg.supabase.co';
   const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkaXVyYWZnZW9ncmFhYmR1ZmRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NDAyOTAsImV4cCI6MjA4ODIxNjI5MH0.e4lvMsHq_iI8Mo6vl7HDkX_AoQDa2xQ6ubfTkEjXE28';
-  let count = 847;
+  let count = 0;
 
   // Fetch real count
   fetch(`${SUPA_URL}/rest/v1/waitlist?select=id`, {
@@ -485,7 +485,7 @@
     const range = r.headers.get('content-range');
     if (range) {
       const n = parseInt(range.split('/')[1]);
-      if (!isNaN(n)) { count = 847 + n; document.getElementById('ctr').textContent = count.toLocaleString(); }
+      if (!isNaN(n)) { count = n; document.getElementById('ctr').textContent = count.toLocaleString(); }
     }
   }).catch(() => {});
 
