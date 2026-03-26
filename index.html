@@ -263,7 +263,7 @@
   <div class="nav-right">
     <a href="#features" class="nav-link">Platform</a>
     <a href="#how" class="nav-link">How It Works</a>
-    <a href="host.html" class="nav-host">Become a Host</a>
+    <a href="host/" class="nav-host">Become a Host</a>
     <a href="#waitlist" class="nav-cta">Join Waitlist</a>
   </div>
 </nav>
@@ -283,7 +283,7 @@
       <p class="form-note">No spam. Early access when we launch.</p>
     </div>
     <div class="hero-stats">
-      <div class="stat"><div class="stat-n" id="ctr">001</div><div class="stat-l">Early Signups</div></div>
+      <div class="stat"><div class="stat-n" id="ctr">847</div><div class="stat-l">Early Signups</div></div>
       <div class="stat"><div class="stat-n">01</div><div class="stat-l">Platform</div></div>
       <div class="stat"><div class="stat-n">2026</div><div class="stat-l">Launch Year</div></div>
     </div>
@@ -393,12 +393,12 @@
   <div class="host-inner">
     <div class="host-eyebrow">For Creators &amp; Presenters</div>
     <h2 class="host-title">Get paid to go <em>live.</em></h2>
-    <p class="host-sub">LIVELY is looking for its founding hosts - confident on camera, passionate about products, and ready to shape how India shops live.</p>
+    <p class="host-sub">LIVELY is looking for its founding hosts — confident on camera, passionate about products, and ready to shape how India shops live.</p>
     <div class="host-perks">
       <div class="host-perk">
         <div class="host-perk-icon">💸</div>
         <div class="host-perk-title">Earn Per Session</div>
-        <div class="host-perk-desc">Get paid for every live session you host. The more you sell, the more you earn - with performance bonuses on top.</div>
+        <div class="host-perk-desc">Get paid for every live session you host. The more you sell, the more you earn — with performance bonuses on top.</div>
       </div>
       <div class="host-perk">
         <div class="host-perk-icon">🎓</div>
@@ -412,7 +412,7 @@
       </div>
     </div>
     <div class="host-cta-row">
-      <a href="host.html" class="host-btn">Apply to Become a Host <span class="host-btn-arrow">→</span></a>
+      <a href="host/" class="host-btn">Apply to Become a Host <span class="host-btn-arrow">→</span></a>
       <span class="host-note">Applications close when cohort is full</span>
     </div>
   </div>
@@ -435,7 +435,7 @@
 <footer>
   <div class="foot-logo">Lively</div>
   <div class="foot-links">
-    <a href="host.html">Become a Host</a>
+    <a href="host/">Become a Host</a>
     <a href="https://instagram.com/lively.is.here" target="_blank" rel="noopener">Instagram</a>
     <a href="#contact" onclick="openContact(); return false;">Contact</a>
   </div>
@@ -476,7 +476,7 @@
 <script>
   const SUPA_URL = 'https://bdiurafgeograabdufdg.supabase.co';
   const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkaXVyYWZnZW9ncmFhYmR1ZmRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NDAyOTAsImV4cCI6MjA4ODIxNjI5MH0.e4lvMsHq_iI8Mo6vl7HDkX_AoQDa2xQ6ubfTkEjXE28';
-  let count = 001;
+  let count = 847;
 
   // Fetch real count
   fetch(`${SUPA_URL}/rest/v1/waitlist?select=id`, {
@@ -485,7 +485,7 @@
     const range = r.headers.get('content-range');
     if (range) {
       const n = parseInt(range.split('/')[1]);
-      if (!isNaN(n)) { count = 001 + n; document.getElementById('ctr').textContent = count.toLocaleString(); }
+      if (!isNaN(n)) { count = 847 + n; document.getElementById('ctr').textContent = count.toLocaleString(); }
     }
   }).catch(() => {});
 
