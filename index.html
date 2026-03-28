@@ -283,7 +283,7 @@
       <p class="form-note">No spam. Early access when we launch.</p>
     </div>
     <div class="hero-stats">
-      <div class="stat"><div class="stat-n" id="ctr">847</div><div class="stat-l">Early Signups</div></div>
+      <div class="stat"><div class="stat-n" id="ctr">001</div><div class="stat-l">Early Signups</div></div>
       <div class="stat"><div class="stat-n">01</div><div class="stat-l">Platform</div></div>
       <div class="stat"><div class="stat-n">2026</div><div class="stat-l">Launch Year</div></div>
     </div>
@@ -476,18 +476,29 @@
 <script>
   const SUPA_URL = 'https://bdiurafgeograabdufdg.supabase.co';
   const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkaXVyYWZnZW9ncmFhYmR1ZmRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NDAyOTAsImV4cCI6MjA4ODIxNjI5MH0.e4lvMsHq_iI8Mo6vl7HDkX_AoQDa2xQ6ubfTkEjXE28';
-  let count = 847;
 
-  // Fetch real count
+  function padCount(n) {
+    return String(n).padStart(3, '0');
+  }
+
+  // Fetch real count from Supabase
   fetch(`${SUPA_URL}/rest/v1/waitlist?select=id`, {
-    headers: { 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}`, 'Prefer': 'count=exact' }
+    headers: {
+      'apikey': SUPA_KEY,
+      'Authorization': `Bearer ${SUPA_KEY}`,
+      'Prefer': 'count=exact'
+    }
   }).then(r => {
     const range = r.headers.get('content-range');
     if (range) {
       const n = parseInt(range.split('/')[1]);
-      if (!isNaN(n)) { count = 847 + n; document.getElementById('ctr').textContent = count.toLocaleString(); }
+      if (!isNaN(n) && n > 0) {
+        document.getElementById('ctr').textContent = padCount(n);
+      }
     }
   }).catch(() => {});
+
+  let localCount = 0;
 
   // Submit waitlist email
   async function submitEmail(eId, bId, fId, sId) {
@@ -505,20 +516,40 @@
     try {
       const res = await fetch(`${SUPA_URL}/rest/v1/waitlist`, {
         method: 'POST',
-        headers: { 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        headers: {
+          'apikey': SUPA_KEY,
+          'Authorization': `Bearer ${SUPA_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
         body: JSON.stringify({ email })
       });
       if (res.status === 201) {
-        count++;
-        document.getElementById('ctr').textContent = count.toLocaleString();
+        // Re-fetch count and update display
+        fetch(`${SUPA_URL}/rest/v1/waitlist?select=id`, {
+          headers: { 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}`, 'Prefer': 'count=exact' }
+        }).then(r => {
+          const range = r.headers.get('content-range');
+          if (range) {
+            const n = parseInt(range.split('/')[1]);
+            if (!isNaN(n) && n > 0) {
+              document.getElementById('ctr').textContent = padCount(n);
+            }
+          }
+        }).catch(() => {});
         document.getElementById(fId).style.display = 'none';
         document.getElementById(sId).style.display = 'flex';
       } else if (res.status === 409 || res.status === 400) {
-        inp.value = ''; inp.placeholder = 'Already on the list!';
-        btn.textContent = 'Join Waitlist'; btn.disabled = false;
-      } else { throw new Error(); }
+        inp.value = '';
+        inp.placeholder = 'Already on the list!';
+        btn.textContent = 'Join Waitlist';
+        btn.disabled = false;
+      } else {
+        throw new Error();
+      }
     } catch(e) {
-      btn.textContent = 'Try Again'; btn.disabled = false;
+      btn.textContent = 'Try Again';
+      btn.disabled = false;
       inp.classList.add('err');
       setTimeout(() => inp.classList.remove('err'), 2000);
     }
@@ -545,12 +576,10 @@
     }, 300);
   }
 
-  // Close modal clicking outside
   document.getElementById('contactModal').addEventListener('click', function(e) {
     if (e.target === this) closeContact();
   });
 
-  // Submit contact form
   async function submitContact() {
     const name = document.getElementById('cf-name').value.trim();
     const email = document.getElementById('cf-email').value.trim();
@@ -567,7 +596,12 @@
     try {
       await fetch(`${SUPA_URL}/rest/v1/contacts`, {
         method: 'POST',
-        headers: { 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        headers: {
+          'apikey': SUPA_KEY,
+          'Authorization': `Bearer ${SUPA_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
         body: JSON.stringify({ name, email, message })
       });
     } catch(e) {}
@@ -575,14 +609,10 @@
     document.getElementById('contactThanks').style.display = 'flex';
   }
 
-  // Enter key for waitlist
   document.getElementById('e1').addEventListener('keydown', e => { if (e.key === 'Enter') submitEmail('e1','b1','fr1','s1'); });
   document.getElementById('e2').addEventListener('keydown', e => { if (e.key === 'Enter') submitEmail('e2','b2','fr2','s2'); });
-
-  // Escape key closes modal
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContact(); });
 
-  // Smooth scroll — skip plain # links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const href = a.getAttribute('href');
