@@ -436,6 +436,7 @@
   <div class="foot-logo">Lively</div>
   <div class="foot-links">
     <a href="host/">Become a Host</a>
+    <a href="https://golively.com/blog" target="_blank" rel="noopener">Blog</a>
     <a href="https://instagram.com/lively.is.here" target="_blank" rel="noopener">Instagram</a>
     <a href="#contact" onclick="openContact(); return false;">Contact</a>
   </div>
@@ -481,7 +482,6 @@
     return String(n).padStart(3, '0');
   }
 
-  // Fetch real count from Supabase
   fetch(`${SUPA_URL}/rest/v1/waitlist?select=id`, {
     headers: {
       'apikey': SUPA_KEY,
@@ -500,7 +500,6 @@
 
   let localCount = 0;
 
-  // Submit waitlist email
   async function submitEmail(eId, bId, fId, sId) {
     const inp = document.getElementById(eId);
     const btn = document.getElementById(bId);
@@ -525,7 +524,6 @@
         body: JSON.stringify({ email })
       });
       if (res.status === 201) {
-        // Re-fetch count and update display
         fetch(`${SUPA_URL}/rest/v1/waitlist?select=id`, {
           headers: { 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}`, 'Prefer': 'count=exact' }
         }).then(r => {
@@ -555,7 +553,6 @@
     }
   }
 
-  // Contact modal
   function openContact() {
     document.getElementById('contactModal').classList.add('open');
     document.body.style.overflow = 'hidden';
