@@ -1,27 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
-<url>
-  <loc>https://golively.in/</loc>
-  <lastmod>2026-04-15T22:49:01+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://golively.in/host/</loc>
-  <lastmod>2026-04-15T22:49:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://golively.in/blog</loc>
-  <lastmod>2026-04-15T22:49:01+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://golively.in/</loc><lastmod>2026-05-12</lastmod><priority>1.00</priority></url>
+  <url><loc>https://golively.in/blog</loc><lastmod>2026-05-12</lastmod><priority>0.90</priority></url>
+  <url><loc>https://golively.in/host/</loc><lastmod>2026-05-12</lastmod><priority>0.80</priority></url>
+  <url><loc>https://golively.in/ai-scripter/</loc><lastmod>2026-05-12</lastmod><priority>0.80</priority></url>
+  <url><loc>https://golively.in/blog/what-is-live-commerce/</loc><lastmod>2026-05-12</lastmod><priority>0.80</priority></url>
+  <url><loc>https://golively.in/blog/d2c-brands-meta-ads-2025/</loc><lastmod>2026-05-12</lastmod><priority>0.75</priority></url>
+  <url><loc>https://golively.in/blog/china-live-commerce-india-next/</loc><lastmod>2026-05-12</lastmod><priority>0.75</priority></url>
+  <url><loc>https://golively.in/blog/why-i-built-live-commerce-platform/</loc><lastmod>2026-05-12</lastmod><priority>0.70</priority></url>
+  <url><loc>https://golively.in/blog/first-live-selling-session-playbook/</loc><lastmod>2026-05-12</lastmod><priority>0.75</priority></url>
+  <url><loc>https://golively.in/blog/real-cost-d2c-customer-india/</loc><lastmod>2026-05-12</lastmod><priority>0.75</priority></url>
+  <url><loc>https://golively.in/blog/live-selling-vs-instagram-live/</loc><lastmod>2026-05-12</lastmod><priority>0.75</priority></url>
+  <url><loc>https://golively.in/blog/india-china-2016-live-commerce/</loc><lastmod>2026-05-12</lastmod><priority>0.75</priority></url>
+  <url><loc>https://golively.in/blog/live-commerce-startups-india-failed/</loc><lastmod>2026-05-12</lastmod><priority>0.75</priority></url>
 </urlset>
