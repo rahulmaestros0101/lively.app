@@ -5,15 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Become a LIVELY Host — Apply Now</title>
 <meta name="description" content="India's first live commerce platform is looking for its founding hosts. Apply to become a LIVELY host and help shape the future of live shopping in India.">
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-M8CQ8XV7');</script>
-<!-- End Google Tag Manager -->
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
@@ -31,27 +22,27 @@ body {
 
 /* ── TOKENS ── */
 :root {
-  --bg: #0A0A0A;
-  --bg2: #111111;
-  --bg3: #181818;
-  --bg4: #222222;
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.13);
-  --accent: #cc00cc;
+  --bg:       #0A0A0A;
+  --bg2:      #111111;
+  --bg3:      #181818;
+  --bg4:      #222222;
+  --border:   rgba(255,255,255,0.07);
+  --border2:  rgba(255,255,255,0.13);
+  --accent:   #cc00cc;
   --accent-h: #a800a8;
-  --accent2: #FFE5FF;
+  --accent2:  #FFE5FF;
   --accent-d: rgba(204,0,204,0.12);
-  --text: #FFFFFF;
-  --text2: #AAAAAA;
-  --text3: #555555;
-  --green: #00cc7a;
-  --amber: #f5a623;
-  --red: #ff4d4d;
-  --display: 'Syne', sans-serif;
-  --body: 'DM Sans', sans-serif;
-  --mono: 'DM Mono', monospace;
-  --r: 12px;
-  --r-lg: 18px;
+  --text:     #FFFFFF;
+  --text2:    #AAAAAA;
+  --text3:    #555555;
+  --green:    #00cc7a;
+  --amber:    #f5a623;
+  --red:      #ff4d4d;
+  --display:  'Syne', sans-serif;
+  --body:     'DM Sans', sans-serif;
+  --mono:     'DM Mono', monospace;
+  --r:        12px;
+  --r-lg:     18px;
 }
 
 /* ── NOISE TEXTURE OVERLAY ── */
@@ -281,7 +272,7 @@ nav {
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ── SECTION WRAPPER ── */
@@ -481,7 +472,7 @@ nav {
   color: var(--accent2);
   transition: background 0.2s, border-color 0.2s;
 }
-.step-item:hover.step-num {
+.step-item:hover .step-num {
   background: var(--accent-d);
   border-color: rgba(204,0,204,0.4);
 }
@@ -687,7 +678,7 @@ label {
   letter-spacing: 0.03em;
   font-family: var(--mono);
 }
-label.req { color: var(--accent); margin-left: 2px; }
+label .req { color: var(--accent); margin-left: 2px; }
 
 input[type="text"],
 input[type="email"],
@@ -725,8 +716,8 @@ textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
 
 /* error state */
 input.error, select.error, textarea.error {
-  border-color: var(--red)!important;
-  box-shadow: 0 0 0 3px rgba(255,77,77,0.08)!important;
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 3px rgba(255,77,77,0.08) !important;
 }
 .field-error {
   font-size: 11px;
@@ -821,7 +812,7 @@ input.error, select.error, textarea.error {
   position: relative;
   overflow: hidden;
 }
-.upload-area:hover,.upload-area.drag {
+.upload-area:hover, .upload-area.drag {
   border-color: rgba(204,0,204,0.4);
   background: rgba(204,0,204,0.04);
 }
@@ -1062,7 +1053,7 @@ input.error, select.error, textarea.error {
   color: var(--text3);
   transition: transform 0.25s, border-color 0.2s, color 0.2s;
 }
-.faq-item.open.faq-icon {
+.faq-item.open .faq-icon {
   transform: rotate(45deg);
   border-color: rgba(204,0,204,0.4);
   color: var(--accent2);
@@ -1072,7 +1063,7 @@ input.error, select.error, textarea.error {
   overflow: hidden;
   transition: max-height 0.35s ease, padding 0.2s;
 }
-.faq-item.open.faq-a { max-height: 300px; }
+.faq-item.open .faq-a { max-height: 300px; }
 .faq-a-inner {
   padding: 0 20px 18px;
   font-size: 14px;
@@ -1107,16 +1098,16 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
- .archetype-grid { grid-template-columns: 1fr; }
- .benefits-grid { grid-template-columns: 1fr; }
- .comp-grid { grid-template-columns: 1fr; }
- .steps { grid-template-columns: repeat(2, 1fr); gap: 24px; }
- .steps::before { display: none; }
- .field-row { grid-template-columns: 1fr; }
- .form-card { padding: 24px 20px; }
- .hero-stats { flex-direction: column; }
- .stat-item { border-right: none; border-bottom: 1px solid var(--border2); }
- .stat-item:last-child { border-bottom: none; }
+  .archetype-grid { grid-template-columns: 1fr; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .comp-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .steps::before { display: none; }
+  .field-row { grid-template-columns: 1fr; }
+  .form-card { padding: 24px 20px; }
+  .hero-stats { flex-direction: column; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border2); }
+  .stat-item:last-child { border-bottom: none; }
 }
 
 /* ── SCROLL REVEAL ── */
@@ -1129,10 +1120,6 @@ footer {
 </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8CQ8XV7"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
 <!-- NAV -->
 <nav>
@@ -1232,6 +1219,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="tag">Quick thinker</span>
         <span class="tag">Crowd reader</span>
       </div>
+    </div>
     <div class="archetype-card c2">
       <div class="arch-icon g">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L2 6v5c0 4.4 3.3 7.7 8 9 4.7-1.3 8-4.6 8-9V6L10 2z" stroke="#00cc7a" stroke-width="1.4" stroke-linejoin="round"/></svg>
@@ -1277,18 +1265,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="benefit-title">Professional training</div>
           <div class="benefit-body">8-day structured program covering camera craft, live selling, brand sessions, and certification.</div>
         </div>
+      </div>
       <div class="benefit-item">
         <div class="benefit-dot" style="background:var(--green)"></div>
         <div>
           <div class="benefit-title">Session pay + GMV bonus</div>
           <div class="benefit-body">Base pay per session plus 2–5% of the session's GMV. You earn more when brands sell more.</div>
         </div>
+      </div>
       <div class="benefit-item">
         <div class="benefit-dot" style="background:var(--amber)"></div>
         <div>
           <div class="benefit-title">LIVELY Certified badge</div>
           <div class="benefit-body">A certification that means something — brands request certified hosts specifically.</div>
         </div>
+      </div>
       <div class="benefit-item">
         <div class="benefit-dot" style="background:var(--accent2)"></div>
         <div>
@@ -1504,7 +1495,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="field-group">
             <label for="social_link">Instagram / YouTube / Social link</label>
-            <input type="url" id="social_link" name="social_link" placeholder="https://instagram.com/yourhandle">
+            <input type="url" id="social_link" name="social_link" placeholder="
+instagram.com/yourhandle%22%3E
+ 
           </div>
 
           <div class="field-group">
@@ -1591,12 +1584,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="upload-area" id="video-upload-area">
               <input type="file" id="video_file" name="video_file" accept="video/*" onchange="handleVideoUpload(this)">
               <div class="upload-icon">
-                <svg width="20" height="20" viewBox="0 0 20" fill="none"><path d="M10 13V4M6 7l4-4 4 4" stroke="#888" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 14v1a2 2 0 002 2h10a2 2 0 002-2v-1" stroke="#888" stroke-width="1.4" stroke-linecap="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 13V4M6 7l4-4 4 4" stroke="#888" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 14v1a2 2 0 002 2h10a2 2 0 002-2v-1" stroke="#888" stroke-width="1.4" stroke-linecap="round"/></svg>
               </div>
               <div class="upload-title">Drop your video here or tap to browse</div>
               <div class="upload-sub">MP4, MOV, or any video format · max 100MB</div>
               <div class="upload-preview" id="video-preview">
-                <svg width="16" height="16" viewBox="0 0 16" fill="none"><rect x="1" y="2" width="14" height="12" rx="2" stroke="#00cc7a" stroke-width="1.3"/><path d="M6 5.5l5 2.5-5 2.5V5.5z" fill="#00cc7a"/></svg>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="14" height="12" rx="2" stroke="#00cc7a" stroke-width="1.3"/><path d="M6 5.5l5 2.5-5 2.5V5.5z" fill="#00cc7a"/></svg>
                 <span id="video-name" style="font-size:13px;color:var(--text2)">video.mp4</span>
                 <button type="button" class="upload-remove" onclick="removeVideo()">×</button>
               </div>
@@ -1626,7 +1619,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="step-counter" id="step-counter">Step 1 of 4</span>
           <button type="button" class="btn-next" id="btn-next" onclick="nextStep()">
             Continue
-            <svg width="14" height="14" viewBox="0 0 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
 
@@ -1797,7 +1790,7 @@ function validateStep(step) {
 
   function require(id, msg) {
     var el = document.getElementById(id);
-    var val = el? el.value.trim() : '';
+    var val = el ? el.value.trim() : '';
     if (!val) { showError(id, msg||'This field is required'); valid = false; }
     else clearError(id);
   }
@@ -1806,7 +1799,7 @@ function validateStep(step) {
     require('first_name');
     require('last_name');
     var email = document.getElementById('email');
-    if (!email.value.trim() ||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
       showError('email', 'Please enter a valid email address'); valid = false;
     } else clearError('email');
     require('phone');
@@ -1839,7 +1832,7 @@ function validateStep(step) {
   if (step === 4) {
     var videoFile = document.getElementById('video_file').value;
     var videoLink = document.getElementById('video_link').value.trim();
-    if (!videoFile &&!videoLink) {
+    if (!videoFile && !videoLink) {
       showError('video_file', 'Please upload a video or paste a link'); valid = false;
     } else clearError('video_file');
     var consent = document.getElementById('consent');
@@ -1868,7 +1861,7 @@ function updateUI() {
     nextBtn.textContent = '';
     nextBtn.innerHTML = 'Submit application <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l6 6-6 6M1 7h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   } else {
-    nextBtn.innerHTML = 'Continue <svg width="14" height="14" viewBox="0 0 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    nextBtn.innerHTML = 'Continue <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
   window.scrollTo({ top: document.getElementById('apply').offsetTop - 80, behavior: 'smooth' });
 }
@@ -1893,25 +1886,25 @@ async function submitForm() {
   btn.innerHTML = 'Submitting...';
 
   var payload = {
-    first_name: document.getElementById('first_name').value.trim(),
-    last_name: document.getElementById('last_name').value.trim(),
-    email: document.getElementById('email').value.trim(),
-    phone: document.getElementById('phone').value.trim(),
-    city: document.getElementById('city').value.trim(),
-    age_range: document.getElementById('age_range').value,
-    background: getCheckedValues('background').join(', '),
-    niche: (document.querySelector('input[name="niche"]:checked') || {}).value || '',
+    first_name:        document.getElementById('first_name').value.trim(),
+    last_name:         document.getElementById('last_name').value.trim(),
+    email:             document.getElementById('email').value.trim(),
+    phone:             document.getElementById('phone').value.trim(),
+    city:              document.getElementById('city').value.trim(),
+    age_range:         document.getElementById('age_range').value,
+    background:        getCheckedValues('background').join(', '),
+    niche:             (document.querySelector('input[name="niche"]:checked') || {}).value || '',
     camera_confidence: starValue,
-    social_link: document.getElementById('social_link').value.trim(),
-    languages: getCheckedValues('languages').join(', '),
-    why_host: document.getElementById('why_host').value.trim(),
-    sell_pitch: document.getElementById('sell_pitch').value.trim(),
-    availability: getCheckedValues('availability').join(', '),
-    equipment: document.getElementById('equipment').value,
-    heard_from: document.getElementById('heard_from').value,
-    video_link: document.getElementById('video_link').value.trim(),
-    status: 'Applied',
-    applied_at: new Date().toISOString(),
+    social_link:       document.getElementById('social_link').value.trim(),
+    languages:         getCheckedValues('languages').join(', '),
+    why_host:          document.getElementById('why_host').value.trim(),
+    sell_pitch:        document.getElementById('sell_pitch').value.trim(),
+    availability:      getCheckedValues('availability').join(', '),
+    equipment:         document.getElementById('equipment').value,
+    heard_from:        document.getElementById('heard_from').value,
+    video_link:        document.getElementById('video_link').value.trim(),
+    status:            'Applied',
+    applied_at:        new Date().toISOString(),
   };
 
   try {
@@ -1931,6 +1924,7 @@ async function submitForm() {
     } else {
       var errData = await res.json().catch(function() { return {}; });
       console.error('Supabase error:', errData);
+      // Still show success to user — save locally as fallback
       saveLocally(payload);
       showSuccess();
     }
